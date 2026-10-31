@@ -2,7 +2,11 @@
 
 module Madmin
   module SortHelper
+    # Links the column header to sort by it, or returns the plain title for
+    # attributes that aren't in the resource's sortable_columns
     def sortable(column, title, options = {})
+      return title unless resource.sortable_columns.include?(column.to_s)
+
       matching_column = (column.to_s == sort_column)
       direction = (sort_direction == "asc") ? "desc" : "asc"
 
